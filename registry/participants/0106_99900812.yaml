@@ -1,9 +1,10 @@
-# One file per participant (REG-01). Mussell B.V.: a fictitious TEST organisation in a Cleverbase business wallet
-# (cb.business-sandbox.cleverbase.io), EBWOID NL-99900421-0001, served by cleverbase-erds-x.
+# One file per participant (REG-01). Dumbbase B.V.: a fictitious TEST organisation of Cleverbase.
+# Organisation in Cleverbase's interop business wallet sandbox (interop.business-sandbox.cleverbase.io),
+# EBWOID NL-99900812-0001, served by cleverbase-erds-x.
 participant:
   scheme: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0106   # lower case (ID-01)
-  value: "99900421"
-  name: Mussell B.V. (TEST)               # informational, not published
+  value: "99900812"
+  name: Dumbbase B.V. (TEST)               # informational, not published
   registrant: Cleverbase ID B.V.  # informational, not published
 services:
   # Registered delivery. WE BUILD has not fixed an ERD service or process identifier yet (SPEC section 12); these are

@@ -1,9 +1,10 @@
-# One file per participant (REG-01). Vlaskeer Handel BV: a fictitious TEST organisation in a Cleverbase business wallet
-# (cb.business-sandbox.cleverbase.io), EBWOID BE-1999000546-0001, served by cleverbase-erds-wb.
+# One file per participant (REG-01). NEWPS interop test: a fictitious TEST organisation for an outside tester (NEWPS.cz).
+# Organisation in Cleverbase's interop business wallet sandbox (interop.business-sandbox.cleverbase.io),
+# EBWOID NL-99900810-0001, served by cleverbase-erds-wb.
 participant:
-  scheme: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0208   # lower case (ID-01)
-  value: "1999000546"
-  name: Vlaskeer Handel BV (TEST)               # informational, not published
+  scheme: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0106   # lower case (ID-01)
+  value: "99900810"
+  name: NEWPS interop test (TEST)               # informational, not published
   registrant: Cleverbase ID B.V.  # informational, not published
 services:
   # Registered delivery. WE BUILD has not fixed an ERD service or process identifier yet (SPEC section 12); these are
