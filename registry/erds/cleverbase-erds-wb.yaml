@@ -1,0 +1,19 @@
+# ERDS capability metadata (ERDS-01; ETSI EN 319 522-3 clause 6.3.2) of Cleverbase's WE BUILD ERDS (TEST, not
+# qualified). Endpoints that belong to it reference it as `erds: cleverbase-erds-wb`.
+name: Cleverbase ERDS (WE BUILD sandbox, TEST)       # informational, not published
+registrant: Cleverbase ID B.V.                        # informational, not published
+erdsId:
+  scheme: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0106
+  value: "67419925"                                   # KvK number of Cleverbase ID B.V. (its WMP qtsp_id)
+domain: erds-wb.business-sandbox.cleverbase.io
+governingBody: Cleverbase ID B.V.
+profileSupported: urn:webuild:erds:profile:etsi-en-319-522-4-1-as4   # PLACEHOLDER of the registry (ERDS-03)
+metadataRepository: https://smp.webuild.kjorlaug.no
+euQualified: false
+tslLocation: https://erds-wb.business-sandbox.cleverbase.io/erds/trust-list
+rootCACertLocation: https://erds-wb.business-sandbox.cleverbase.io/pki/root.cer
+expiryDateAndTimeSupport: true
+scheduledDeliverySupport: false
+assuranceLevel:
+  level: http://eidas.europa.eu/LoA/substantial
+consignmentMode: basic                                # also consent and signed (see the WMP configuration)
