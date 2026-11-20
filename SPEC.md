@@ -37,6 +37,7 @@ The key words MUST, MUST NOT, SHOULD, SHOULD NOT and MAY are to be read as descr
 | [RFC4648] | The Base16, Base32 and Base64 Data Encodings | Base32 hash encoding |
 | [RFC3986] | Uniform Resource Identifier (URI): Generic Syntax | Percent-encoding |
 | [XMLDSIG] | XML Signature Syntax and Processing 1.1 | Signed metadata |
+| [eDelivery-SMP] | [eDelivery SMP 2.0](https://ec.europa.eu/digital-building-blocks/sites/spaces/DIGITAL/pages/843612543/eDelivery+SMP+-+2.0), European Commission eDelivery specification (Dec 2024) | AS4 2.0 transport profile identifiers |
 | [ERDS3] | ETSI EN 319 522-3 V1.1.1 (2018-09), Electronic Registered Delivery Services; Part 3: Formats | `ERDSMetadata` (clause 6.3.2) and its XML schema |
 | [ERDS43] | ETSI EN 319 522-4-3 V1.1.1 (2018-09), ERDS; Part 4: Bindings; Sub-part 3: Capability/requirements bindings | BDXL and SMP binding for ERDS metadata |
 
@@ -81,7 +82,7 @@ Participants are identified with ebCore party ID schemes. Services (document typ
 
 - **ID-01** Registrants MUST register participant scheme and value in lower case.
 - **ID-02** Senders MUST lower-case the full participant identifier `{scheme}::{value}` before hashing (section 5) and before building the SMP URL (section 6).
-- **ID-03** Participant schemes MUST come from the list the operator publishes. The initial list is ISO 6523 ICDs 0192, 0088 and 0208, as ebCore URNs.
+- **ID-03** Participant schemes MUST come from the list the operator publishes. The list is ISO 6523 ICDs 0192, 0088, 0208 and 0106, as ebCore URNs.
 - **ID-04** Service and process identifiers are case-insensitive, as [SMP2] defines unless a scheme says otherwise; clients such as phoss fold `bdx-docid-qns` values to lower case. Senders MUST use them either exactly as registered or fully lower-cased. The SMP MUST serve both forms.
 - **ID-05** In URLs, each identifier MUST be percent-encoded as one path segment, as [SMP2] requires. At least `:` becomes `%3A`, `#` becomes `%23` and `/` becomes `%2F`.
 - **ID-06** The SMP MUST also accept `:` unencoded, because clients differ in practice.
@@ -158,7 +159,7 @@ An endpoint's `TransportProfileID` says how to reach it. AS4 and wallet endpoint
 | TransportProfileID | Use | AddressURI | Certificate anchor |
 | --- | --- | --- | --- |
 | `bdxr-transport-ebms3-as4-v1p0` | OASIS AS4 profile of ebMS 3.0 | AS4 MSH URL | WE BUILD AS4 test CA (to be defined) |
-| `bdxr-transport-ebms3-as4-v2p0` (placeholder) | eDelivery AS4 2.0 (EdDSA Ed25519 signing, X25519 key agreement), as CS-016 requires | AS4 MSH URL | WE BUILD AS4 test CA (to be defined) |
+| `bdxr-transport-ebms3-as4-v2p0-curve25519` | eDelivery AS4 2.0 with Ed25519 signing and X25519 key agreement, as [eDelivery-SMP] defines it and CS-016 requires | AS4 MSH URL | WE BUILD AS4 test CA (to be defined) |
 | `webuild-transport-wmp-v1` (proposed) | Wallet Messaging Protocol inbox | WMP endpoint URL | WE BUILD wallet anchor (to be defined) |
 | `webuild-transport-oid4vci-1.0` (placeholder) | EBW credential offer endpoint, OpenID for Verifiable Credential Issuance 1.0 | https URL that accepts a credential offer | none for now (OID-04) |
 | `webuild-transport-oid4vp-1.0` (placeholder) | EBW presentation request endpoint, OpenID for Verifiable Presentations 1.0 | https URL that accepts an authorization request | none for now (OID-04) |

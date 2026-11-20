@@ -15,9 +15,9 @@ services:
       - process:
           value: "http://uri.etsi.org/19522/v1#/as4binding/Relay"
         endpoints:
-          # QERDS to QERDS (CS-16). Our access point speaks AS4 2.0 (Ed25519 / X25519, eDelivery AS4 2.0); the
-          # registry allows only the 1.0 profile id until a v2 one exists (see README).
-          - transportProfile: bdxr-transport-ebms3-as4-v2p0
+          # QERDS to QERDS (CS-16). Our access point speaks eDelivery AS4 2.0 with Ed25519 signing and X25519 key
+          # agreement: eDelivery SMP 2.0 profile id bdxr-transport-ebms3-as4-v2p0-curve25519.
+          - transportProfile: bdxr-transport-ebms3-as4-v2p0-curve25519
             address: https://as4-x.business-sandbox.cleverbase.io/as4
             erds: cleverbase-erds-x
             description: AS4 access point of ERDS X (TEST, AS4 2.0)
