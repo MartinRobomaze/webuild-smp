@@ -159,6 +159,18 @@ def check_crl(config, signing_cert_pem: bytes | None = None) -> list[str]:
     return errors
 
 
+def path_id_error(ident: str) -> str | None:
+    """ID-07: identifiers become file names on a static host (decoded layout)."""
+    segments = ident.split("/")
+    if "//" in ident:
+        return "contains '//': Cloudflare Pages does not serve a path decoded from %2F%2F"
+    if ident.startswith("/") or any(seg in (".", "..") for seg in segments):
+        return "contains a '.' or '..' path segment or a leading '/'"
+    if "\\" in ident or "\0" in ident:
+        return "contains a backslash or NUL"
+    return None
+
+
 def validate_erds(erds, config) -> list[str]:
     """ERDS-01..03: record schema, allowed profile, ETSI XSD validity of the generated ERDSMetadata."""
     errors = []
@@ -200,6 +212,9 @@ def validate(records, config, schema, erds=None) -> list[str]:
             errors.append(f"{where}: participant scheme and value must be lower case (ID-01)")
         if p.get("scheme") and p["scheme"] not in config["participant_schemes"]:
             errors.append(f"{where}: participant scheme {p['scheme']} not allowed (ID-03)")
+        for ident in [norm_participant(p)] + [s["service"] for s in rec["services"]]:
+            if (err := path_id_error(full_id(ident))):
+                errors.append(f"{where}: identifier {full_id(ident)!r} {err} (ID-07)")
         key = full_id(norm_participant(p))
         if key in seen:
             errors.append(f"{where}: duplicate participant, also in {seen[key].relative_to(ROOT)}")

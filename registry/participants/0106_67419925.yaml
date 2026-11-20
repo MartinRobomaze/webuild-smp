@@ -7,13 +7,15 @@ participant:
   name: Cleverbase ID B.V. (TEST, interop sandbox)               # informational, not published
   registrant: Cleverbase ID B.V.  # informational, not published
 services:
-  # Registered delivery. WE BUILD has not fixed an ERD service or process identifier yet (SPEC section 12); these are
-  # the AS4 Action and Service of ETSI EN 319 522-4-1 V1.2.1 clause 5 for an ERD dispatch.
+  # Registered delivery (SPEC 8.1). PLACEHOLDER service and process IDs until WE BUILD fixes them (SPEC section 12).
+  # They stand for the ETSI EN 319 522-4-1 AS4 Action .../as4binding/Actions/ERDdispatch and Service
+  # .../as4binding/Relay; those URIs contain '//', which the static SMP cannot serve (ID-07).
   - service:
-      value: "http://uri.etsi.org/19522/v1#/as4binding/Actions/ERDdispatch"
+      scheme: webuild-svcid
+      value: "urn:webuild:svc:erds:dispatch"
     processMetadata:
       - process:
-          value: "http://uri.etsi.org/19522/v1#/as4binding/Relay"
+          value: "urn:webuild:proc:erds:relay"
         endpoints:
           # QERDS to QERDS (CS-16). Our access point speaks eDelivery AS4 2.0 with Ed25519 signing and X25519 key
           # agreement: eDelivery SMP 2.0 profile id bdxr-transport-ebms3-as4-v2p0-curve25519.

@@ -86,6 +86,7 @@ Participants are identified with ebCore party ID schemes. Services (document typ
 - **ID-04** Service and process identifiers are case-insensitive, as [SMP2] defines unless a scheme says otherwise; clients such as phoss fold `bdx-docid-qns` values to lower case. Senders MUST use them either exactly as registered or fully lower-cased. The SMP MUST serve both forms.
 - **ID-05** In URLs, each identifier MUST be percent-encoded as one path segment, as [SMP2] requires. At least `:` becomes `%3A`, `#` becomes `%23` and `/` becomes `%2F`.
 - **ID-06** The SMP MUST also accept `:` unencoded, because clients differ in practice.
+- **ID-07** Participant and service identifiers MUST NOT contain `//`, a `.` or `..` path segment, a leading `/`, a backslash or NUL. A static host stores each identifier as a file name, and a sender's `%2F%2F` cannot be served: Cloudflare Pages collapses a literal `//` in a path but not one decoded from `%2F%2F` (tested live 2026-11-20). This rules out identifiers that are `http://` URIs; use a URN instead.
 
 ## 5. Discovery: BDXL
 
@@ -176,6 +177,7 @@ An endpoint's `TransportProfileID` says how to reach it. AS4 and wallet endpoint
 - **ERDS-02** For an endpoint that names an ERDS, the SMP MUST publish `Endpoint/ext:SMPExtensions/ext:SMPExtension` with `smb:ID` `ERDSMetadata`, `ext:Name` `ERDSMetadata`, `ext:ExtensionAgencyID` `ETSI`, `ext:ExtensionAgencyName` `European Telecommunications Standards Institute`, `ext:ExtensionVersionID` `EN319522v1.1.1`, `ext:ExtensionAgencyURI` `http://www.etsi.org`, `ext:ExtensionURI` `http://uri.etsi.org/19522/v1#ERDSMetadata`, `ext:ExtensionReasonCode` `ERDSMetadata` and `ext:ExtensionReason` `Publish capability metadata for an Electronic Registered Delivery Service`. These are the [ERDS3] clause 6.3.2 values under their [SMP2] element names. `ext:ExtensionContent` holds one `erds:ERDSMetadata` (namespace `http://uri.etsi.org/19522/v1#`, `version="EN319522v1.1.1"`) that MUST validate against the [ERDS3] schema. In that schema only the root element is namespace-qualified.
 - **ERDS-03** `ERDSProfileSupported` MUST be one of the WE BUILD ERDS profile URIs. [ERDS3] defines no profile identifiers, so WE BUILD keeps the list (`erds_profiles` in the reference implementation). The pilot value `urn:webuild:erds:profile:etsi-en-319-522-4-1-as4` (ETSI AS4 binding) is a placeholder; see section 12.
 - **ERDS-04** The extension is on the `Endpoint`, not on `ProcessMetadata`, because one ServiceMetadata can mix ERDS and non-ERDS endpoints (TP-02). [ERDS43] allows either level. Senders that do not use ERDS metadata MUST ignore the extension, as [SMP2] allows.
+- **ERDS-05** Registered delivery between (Q)ERDSs uses service ID `webuild-svcid::urn:webuild:svc:erds:dispatch` and process ID `urn:webuild:proc:erds:relay` (placeholders, section 12). They stand for the AS4 Action `http://uri.etsi.org/19522/v1#/as4binding/Actions/ERDdispatch` and Service `http://uri.etsi.org/19522/v1#/as4binding/Relay` of ETSI EN 319 522-4-1, which cannot be SMP identifiers here (ID-07). A sending ERDS looks up this service ID for the recipient.
 
 ### 8.2 EBW OID4VC endpoints
 
@@ -223,6 +225,7 @@ A sender or operator conforms if it meets every MUST in its column.
 | ID-04 | Service and process IDs as registered or lower-cased; SMP serves both | MUST | | MUST |
 | ID-05 | Each identifier percent-encoded as one segment | MUST | | MUST |
 | ID-06 | Accept unencoded `:` | MUST | | |
+| ID-07 | No `//`, `.` or `..` segments in identifiers | check | MUST | |
 | BDXL-01 | Published, configurable BDXL zone | MUST | | MUST |
 | BDXL-02 | Host = lower(base32(sha256(lower(scheme::value)))).zone | MUST | | MUST |
 | BDXL-03 | U-NAPTR, `Meta:SMP`, regexp yields SMP base URL | MUST | | |
