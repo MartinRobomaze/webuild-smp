@@ -17,7 +17,7 @@ services:
         endpoints:
           # QERDS to QERDS (CS-16). Our access point speaks AS4 2.0 (Ed25519 / X25519, eDelivery AS4 2.0); the
           # registry allows only the 1.0 profile id until a v2 one exists (see README).
-          - transportProfile: bdxr-transport-ebms3-as4-v1p0
+          - transportProfile: bdxr-transport-ebms3-as4-v2p0
             address: https://as4-x.business-sandbox.cleverbase.io/as4
             erds: cleverbase-erds-x
             description: AS4 access point of ERDS X (TEST, AS4 2.0)
