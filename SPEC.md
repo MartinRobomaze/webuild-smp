@@ -158,6 +158,7 @@ An endpoint's `TransportProfileID` says how to reach it. AS4 and wallet endpoint
 | TransportProfileID | Use | AddressURI | Certificate anchor |
 | --- | --- | --- | --- |
 | `bdxr-transport-ebms3-as4-v1p0` | OASIS AS4 profile of ebMS 3.0 | AS4 MSH URL | WE BUILD AS4 test CA (to be defined) |
+| `bdxr-transport-ebms3-as4-v2p0` (placeholder) | eDelivery AS4 2.0 (EdDSA Ed25519 signing, X25519 key agreement), as CS-016 requires | AS4 MSH URL | WE BUILD AS4 test CA (to be defined) |
 | `webuild-transport-wmp-v1` (proposed) | Wallet Messaging Protocol inbox | WMP endpoint URL | WE BUILD wallet anchor (to be defined) |
 | `webuild-transport-oid4vci-1.0` (placeholder) | EBW credential offer endpoint, OpenID for Verifiable Credential Issuance 1.0 | https URL that accepts a credential offer | none for now (OID-04) |
 | `webuild-transport-oid4vp-1.0` (placeholder) | EBW presentation request endpoint, OpenID for Verifiable Presentations 1.0 | https URL that accepts an authorization request | none for now (OID-04) |

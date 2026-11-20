@@ -1,0 +1,40 @@
+# One file per participant (REG-01). Cleverbase ID B.V. itself (KvK 67419925), for our own interop tests.
+# Organisation in Cleverbase's interop business wallet sandbox (interop.business-sandbox.cleverbase.io),
+# EBWOID NL-67419925-0005, served by cleverbase-erds-wb.
+participant:
+  scheme: urn:oasis:names:tc:ebcore:partyid-type:iso6523:0106   # lower case (ID-01)
+  value: "67419925"
+  name: Cleverbase ID B.V. (TEST, interop sandbox)               # informational, not published
+  registrant: Cleverbase ID B.V.  # informational, not published
+services:
+  # Registered delivery. WE BUILD has not fixed an ERD service or process identifier yet (SPEC section 12); these are
+  # the AS4 Action and Service of ETSI EN 319 522-4-1 V1.2.1 clause 5 for an ERD dispatch.
+  - service:
+      value: "http://uri.etsi.org/19522/v1#/as4binding/Actions/ERDdispatch"
+    processMetadata:
+      - process:
+          value: "http://uri.etsi.org/19522/v1#/as4binding/Relay"
+        endpoints:
+          # QERDS to QERDS (CS-16). Our access point speaks AS4 2.0 (Ed25519 / X25519, eDelivery AS4 2.0); the
+          # registry allows only the 1.0 profile id until a v2 one exists (see README).
+          - transportProfile: bdxr-transport-ebms3-as4-v2p0
+            address: https://as4-wb.business-sandbox.cleverbase.io/as4
+            erds: cleverbase-erds-wb
+            description: AS4 access point of Cleverbase ERDS (WE BUILD) (TEST, AS4 2.0)
+            activationDate: "2026-11-17"
+            expirationDate: "2027-11-17"
+            certificates:
+              - certificate: ../certs/cleverbase-erds-wb-as4-signing.pem
+                typeCode: signing
+              - certificate: ../certs/cleverbase-erds-wb-as4-encryption.pem
+                typeCode: encryption
+          # The participant's business wallet at its QERDS (CS-15, WMP over HTTPS); the certificate is the QERDS's
+          # seal that signs its /.well-known/wmp-configuration.
+          - transportProfile: webuild-transport-wmp-v1
+            address: https://erds-wb.business-sandbox.cleverbase.io/wmp
+            description: WMP door of Cleverbase ERDS (WE BUILD) (TEST)
+            activationDate: "2026-11-17"
+            expirationDate: "2027-11-17"
+            certificates:
+              - certificate: ../certs/cleverbase-erds-wb-seal.pem
+                typeCode: signing
