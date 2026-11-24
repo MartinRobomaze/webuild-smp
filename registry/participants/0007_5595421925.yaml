@@ -26,15 +26,17 @@ services:
             description: "SIROS GDC demo WMP engine (HTTP+SSE: the invitation, mailbox, MCP tool surface and MLS groups - Madrid levels 0-3)"
             contact: mailto:leifj@siros.org
             expirationDate: "2027-12-31"
-            # CS-15 / WMP eDelivery §4.3/§8.2: the record carries the EBW's
-            # Subscriber certificate - the one the EBW presents in mTLS, with
-            # the ebCore participant id as SAN URI. NOT gated on the test-anchor
-            # decision (registry feedback 2026-11-24): the cert lands via the
-            # QTSP route, and the certificates block (path ../certs/ or inline
-            # PEM) is added in this PR the moment it is signed. The CSR with
-            # the requested SANs (urn:oasis:names:tc:ebcore:partyid-type:
-            # iso6523:0007::5595421925 + DNS sirosid-gdc-wallet-proxy.fly.dev)
-            # is already posted on this thread.
+            certificates:
+              # CS-15 / WMP eDelivery §4.3/§8.2: the EBW's Subscriber
+              # certificate - the one the EBW presents in mTLS. Issued from
+              # SIROS's WE BUILD pilot test CA (the QTSP-trusted own-CA route,
+              # per the 2026-11-24 feedback - not gated on the test-anchor
+              # decision); the CA cert is posted on this thread for the
+              # pilot's test trust anchors. SANs: the ebCore participant id
+              # (0007::5595421925) + the endpoint DNS.
+              - certificate: ../certs/siros-ebw-subscriber.pem
+                typeCode: subscriber
+                description: "SIROS EBW Subscriber certificate (mTLS): EC P-256, valid to 2027-09-20"
   # The well-known configuration (PR siros-wallet-core #85, v0.3.3): served at
   # /.well-known/wmp-configuration through the same location.
   # No OID4VC services in the SMP record yet: the wallet's issuance endpoints
